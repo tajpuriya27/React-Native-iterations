@@ -4,15 +4,35 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
+  Modal,
 } from "react-native";
+import React, { useState } from "react";
 import { userDefCol } from "../../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
 import tempData from "../../assets/data/tempData";
 import TodoList from "../../components/TodoList";
+import AddListModal from "@/components/AddListModal";
 
 export default function HomeScreen() {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const toggleModel = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        visible={isModalVisible}
+        onRequestClose={() => {
+          setModalVisible(!isModalVisible);
+        }}
+      >
+        <AddListModal
+          closeModel={() => {
+            toggleModel();
+          }}
+        />
+      </Modal>
       <View style={{ flexDirection: "row" }}>
         <View style={styles.divider} />
         <Text style={styles.title}>
@@ -22,7 +42,12 @@ export default function HomeScreen() {
         <View style={styles.divider} />
       </View>
       <View style={{ marginVertical: 48 }}>
-        <TouchableOpacity style={styles.addList}>
+        <TouchableOpacity
+          style={styles.addList}
+          onPress={() => {
+            setModalVisible(!isModalVisible);
+          }}
+        >
           <AntDesign name="plus" size={16} color={userDefCol.blue} />
         </TouchableOpacity>
 
