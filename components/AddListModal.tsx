@@ -29,11 +29,8 @@ export default function AddListModal(props: any) {
 
   const createToDoList = () => {
     const { name, bgColor } = compState;
-    tempData.push({
-      name: name,
-      color: bgColor,
-      todos: [],
-    });
+    const list = { name, color: bgColor };
+    props.addList(list);
     setCompState({ name: "", bgColor: bgColors[0] });
     props.closeModel();
   };

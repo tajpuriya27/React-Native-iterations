@@ -39,59 +39,57 @@ const RenderTodos = ({ item }) => {
   );
 };
 
-export default function TodoModal({
-  list,
-  closeModel,
-}: {
-  list: any;
-  closeModel: any;
-}) {
+export default function TodoModal({ list, closeModel, updateList }) {
   const { name, color, todos } = list;
   const countTask = todos.length;
   const countCompleted = todos.filter((todo: any) => todo.completed).length;
   const countRemaining = countTask - countCompleted;
 
   return (
-    <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        style={{ position: "absolute", top: 64, right: 32, zIndex: 10 }}
-        onPress={closeModel}
-      >
-        <AntDesign name="close" size={24} color={userDefCol.black} />
-      </TouchableOpacity>
-
-      <View
-        style={[styles.section, styles.header, { borderBottomColor: color }]}
-      >
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.taskCount}>
-          {countCompleted} of {countTask} tasks
-        </Text>
-      </View>
-
-      <View style={[styles.section, { flex: 3 }]}>
-        <FlatList
-          data={todos}
-          renderItem={({ item }) => <RenderTodos item={item} />}
-          keyExtractor={(item) => item.title}
-          contentContainerStyle={{ paddingHorizontal: 32, paddingVertical: 64 }}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-
-      <KeyboardAvoidingView
-        style={[styles.section, styles.footer]}
-        behavior="padding"
-      >
-        <TextInput
-          style={[styles.input, { borderColor: color }]}
-          placeholder="Add Task"
-        />
-        <TouchableOpacity style={[styles.addTodo, { backgroundColor: color }]}>
-          <AntDesign name="plus" size={16} color={userDefCol.white} />
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+      <SafeAreaView style={styles.container}>
+        <TouchableOpacity
+          style={{ position: "absolute", top: 64, right: 32, zIndex: 10 }}
+          onPress={closeModel}
+        >
+          <AntDesign name="close" size={24} color={userDefCol.black} />
         </TouchableOpacity>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+
+        <View
+          style={[styles.section, styles.header, { borderBottomColor: color }]}
+        >
+          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.taskCount}>
+            {countCompleted} of {countTask} tasks
+          </Text>
+        </View>
+
+        <View style={[styles.section, { flex: 3 }]}>
+          <FlatList
+            data={todos}
+            renderItem={({ item }) => <RenderTodos item={item} />}
+            keyExtractor={(item) => item.title}
+            contentContainerStyle={{
+              paddingHorizontal: 32,
+              paddingVertical: 64,
+            }}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+
+        <View style={[styles.section, styles.footer]}>
+          <TextInput
+            style={[styles.input, { borderColor: color }]}
+            placeholder="Add Task"
+          />
+          <TouchableOpacity
+            style={[styles.addTodo, { backgroundColor: color }]}
+          >
+            <AntDesign name="plus" size={16} color={userDefCol.white} />
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 

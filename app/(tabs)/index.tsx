@@ -15,8 +15,20 @@ import AddListModal from "@/components/AddListModal";
 
 export default function HomeScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [lists, setLists] = useState(tempData);
   const toggleModel = () => {
     setModalVisible(!isModalVisible);
+  };
+
+  const addList = (list: any) => {
+    setLists([...lists, { ...list, id: lists.length + 1, todos: [] }]);
+  };
+  const updateList = (list: any) => {
+    setLists(
+      lists.map((item) => {
+        return item.id === list.id ? list : item;
+      })
+    );
   };
   return (
     <View style={styles.container}>
@@ -31,6 +43,7 @@ export default function HomeScreen() {
           closeModel={() => {
             toggleModel();
           }}
+          addList={addList}
         />
       </Modal>
       <View style={{ flexDirection: "row" }}>
@@ -55,11 +68,13 @@ export default function HomeScreen() {
       </View>
       <View style={{ height: 275, paddingLeft: 32 }}>
         <FlatList
-          data={tempData}
+          data={lists}
           keyExtractor={(item) => item.name}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <TodoList list={item} />}
+          renderItem={({ item }) => (
+            <TodoList list={item} updateList={updateList} />
+          )}
         />
       </View>
     </View>

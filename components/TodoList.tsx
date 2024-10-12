@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import TodoModal from "./TodoModal";
 
-export default function TodoList({ list }: { list: any }) {
+export default function TodoList({ list, updateList }: { list: any }) {
   const countCompleted = list.todos.filter(
     (todo: any) => todo.completed
   ).length;
@@ -21,16 +21,11 @@ export default function TodoList({ list }: { list: any }) {
         onRequestClose={() => toggleListVisible()}
         presentationStyle="formSheet"
       >
-        <TodoModal list={list} closeModel={() => toggleListVisible()} />
-        {/* <View style={{ flex: 1 }}>
-          <TouchableOpacity
-            onPress={() => setIsListVisible(false)}
-            style={{ position: "absolute", top: 64, right: 32 }}
-          >
-            <Text>Close</Text>
-          </TouchableOpacity>
-          <Text>{list.name}</Text>
-        </View> */}
+        <TodoModal
+          list={list}
+          closeModel={() => toggleListVisible()}
+          updateList={updateList}
+        />
       </Modal>
 
       <TouchableOpacity
