@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import TodoModal from "./TodoModal";
 
-export default function TodoList({ list, updateList }: { list: any }) {
+export default function TodoList({ list, updateList }: any) {
   const countCompleted = list.todos.filter(
     (todo: any) => todo.completed
   ).length;

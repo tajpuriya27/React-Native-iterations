@@ -13,10 +13,10 @@ import {
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { userDefCol } from "../constants/Colors";
 
-const RenderTodos = ({ item }) => {
+const RenderTodos = ({ item, toggleCompleted }: any) => {
   return (
     <View style={styles.todoContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={toggleCompleted}>
         <Ionicons
           name={item.completed ? "checkbox" : "square-outline"}
           size={24}
@@ -39,11 +39,15 @@ const RenderTodos = ({ item }) => {
   );
 };
 
-export default function TodoModal({ list, closeModel, updateList }) {
+export default function TodoModal({ list, closeModel, updateList }: any) {
   const { name, color, todos } = list;
   const countTask = todos.length;
   const countCompleted = todos.filter((todo: any) => todo.completed).length;
-  const countRemaining = countTask - countCompleted;
+
+  const toggleCompleted = (index: number) => {
+    todos[index].completed = !todos[index].completed;
+    updateList(list);
+  };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
@@ -67,7 +71,12 @@ export default function TodoModal({ list, closeModel, updateList }) {
         <View style={[styles.section, { flex: 3 }]}>
           <FlatList
             data={todos}
-            renderItem={({ item }) => <RenderTodos item={item} />}
+            renderItem={({ item, index }) => (
+              <RenderTodos
+                item={item}
+                toggleCompleted={() => toggleCompleted(index)}
+              />
+            )}
             keyExtractor={(item) => item.title}
             contentContainerStyle={{
               paddingHorizontal: 32,

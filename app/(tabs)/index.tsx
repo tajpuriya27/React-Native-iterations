@@ -23,6 +23,7 @@ export default function HomeScreen() {
   const addList = (list: any) => {
     setLists([...lists, { ...list, id: lists.length + 1, todos: [] }]);
   };
+
   const updateList = (list: any) => {
     setLists(
       lists.map((item) => {
