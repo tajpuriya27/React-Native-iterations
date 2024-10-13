@@ -44,9 +44,19 @@ export default function TodoModal({ list, closeModel, updateList }: any) {
   const countTask = todos.length;
   const countCompleted = todos.filter((todo: any) => todo.completed).length;
 
+  const [newTodo, setNewTodo] = React.useState("");
+
   const toggleCompleted = (index: number) => {
     todos[index].completed = !todos[index].completed;
     updateList(list);
+  };
+
+  const addTodo = () => {
+    if (!newTodo) return;
+    const newTask = { title: newTodo, completed: false };
+    todos.push(newTask);
+    updateList(list);
+    setNewTodo("");
   };
 
   return (
@@ -90,9 +100,12 @@ export default function TodoModal({ list, closeModel, updateList }: any) {
           <TextInput
             style={[styles.input, { borderColor: color }]}
             placeholder="Add Task"
+            value={newTodo}
+            onChangeText={(text) => setNewTodo(text)}
           />
           <TouchableOpacity
             style={[styles.addTodo, { backgroundColor: color }]}
+            onPress={addTodo}
           >
             <AntDesign name="plus" size={16} color={userDefCol.white} />
           </TouchableOpacity>
