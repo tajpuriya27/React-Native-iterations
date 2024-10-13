@@ -77,6 +77,7 @@ export default function HomeScreen() {
           renderItem={({ item }) => (
             <TodoList list={item} updateList={updateList} />
           )}
+          keyboardShouldPersistTaps="always"
         />
       </View>
     </View>

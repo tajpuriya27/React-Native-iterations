@@ -9,6 +9,7 @@ import {
   FlatList,
   KeyboardAvoidingView,
   TextInput,
+  Keyboard,
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { userDefCol } from "../constants/Colors";
@@ -57,6 +58,7 @@ export default function TodoModal({ list, closeModel, updateList }: any) {
     todos.push(newTask);
     updateList(list);
     setNewTodo("");
+    Keyboard.dismiss();
   };
 
   return (
