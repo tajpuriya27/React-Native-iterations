@@ -16,11 +16,23 @@ import AddListModal from "@/components/AddListModal";
 import Fire from "@/firebase.config";
 console.log("khslsjl", Fire);
 
+interface todosObj {
+  id: string;
+  title: string;
+  completed: boolean;
+}
+interface listsObj {
+  id: string;
+  name: string;
+  color: string;
+  todos: todosObj[];
+}
+
 export default function HomeScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [lists, setLists] = useState([]);
-  const [user, setUser] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [lists, setLists] = useState<listsObj[]>([]);
+  const [user, setUser] = useState<any>({});
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
   const toggleModel = () => {
     setModalVisible(!isModalVisible);
   };
@@ -120,7 +132,7 @@ export default function HomeScreen() {
       <View style={{ height: 275, paddingLeft: 32 }}>
         <FlatList
           data={lists}
-          keyExtractor={(item) => item.name}
+          keyExtractor={(item) => item.id.toString()}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
