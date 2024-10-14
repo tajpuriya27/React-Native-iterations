@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
   Modal,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { userDefCol } from "../../constants/Colors";
@@ -12,14 +13,48 @@ import { AntDesign } from "@expo/vector-icons";
 import tempData from "../../assets/data/tempData";
 import TodoList from "../../components/TodoList";
 import AddListModal from "@/components/AddListModal";
+import Fire from "@/firebase.config";
+console.log("khslsjl", Fire);
 
 export default function HomeScreen() {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [lists, setLists] = useState(tempData);
+  const [lists, setLists] = useState([]);
+  const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const toggleModel = () => {
     setModalVisible(!isModalVisible);
   };
 
+  // start: Supporting functions //
+  const initFirebase = () => {
+    try {
+      setIsLoading(true);
+      const firebase = new Fire((error, user) => {
+        if (error) {
+          return alert("Uh oh, something went wrong");
+        }
+
+        firebase.getLists((lists: any) => {
+          console.log("lists", lists);
+          setLists(lists);
+        });
+        setUser(user);
+      });
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // End: Supporting functions //
+
+  // UseEffects: run on mounting only //
+  React.useEffect(() => {
+    initFirebase();
+  }, []);
+
+  // Start: Functions //
   const addList = (list: any) => {
     setLists([...lists, { ...list, id: lists.length + 1, todos: [] }]);
   };
@@ -31,7 +66,15 @@ export default function HomeScreen() {
       })
     );
   };
+  // End: Functions //
 
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color={userDefCol.blue} />
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <Modal
@@ -56,6 +99,11 @@ export default function HomeScreen() {
         </Text>
         <View style={styles.divider} />
       </View>
+
+      <View>
+        <Text>User: {user.uid} </Text>
+      </View>
+
       <View style={{ marginVertical: 48 }}>
         <TouchableOpacity
           style={styles.addList}
@@ -68,6 +116,7 @@ export default function HomeScreen() {
 
         <Text style={styles.add}>Add List</Text>
       </View>
+
       <View style={{ height: 275, paddingLeft: 32 }}>
         <FlatList
           data={lists}
