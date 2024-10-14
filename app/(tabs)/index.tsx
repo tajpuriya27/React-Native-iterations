@@ -114,6 +114,7 @@ export default function HomeScreen() {
           addList={addList}
         />
       </Modal>
+
       <View style={{ flexDirection: "row" }}>
         <View style={styles.divider} />
         <Text style={styles.title}>

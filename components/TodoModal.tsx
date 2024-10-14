@@ -19,10 +19,7 @@ import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 
-const RenderTodos = ({ item, toggleCompleted, index }: any) => {
-  const deleteTodo = (index: any) => {
-    console.log("deleteTodo", index);
-  };
+const RenderTodos = ({ item, toggleCompleted, deleteTodo }: any) => {
   const rightActions = (progress: any, dragX: any) => {
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
@@ -37,7 +34,7 @@ const RenderTodos = ({ item, toggleCompleted, index }: any) => {
     });
 
     return (
-      <TouchableOpacity onPress={(index) => deleteTodo(index)}>
+      <TouchableOpacity onPress={deleteTodo}>
         <Animated.View style={[styles.deleteButton, { opacity }]}>
           <Animated.Text
             style={[styles.deleteButtonText, { transform: [{ scale }] }]}
@@ -90,6 +87,11 @@ export default function TodoModal({ list, closeModel, updateList }: any) {
     updateList(list);
   };
 
+  const deleteTodo = (index: number) => {
+    todos.splice(index, 1);
+    updateList(list);
+  };
+
   const addTodo = () => {
     if (!newTodo) return;
     const newTask = { title: newTodo, completed: false };
@@ -131,7 +133,7 @@ export default function TodoModal({ list, closeModel, updateList }: any) {
                 <RenderTodos
                   item={item}
                   toggleCompleted={() => toggleCompleted(index)}
-                  index={index}
+                  deleteTodo={() => deleteTodo(index)}
                 />
               )}
               showsVerticalScrollIndicator={false}
