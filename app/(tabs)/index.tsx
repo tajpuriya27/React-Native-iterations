@@ -83,11 +83,11 @@ export default function HomeScreen() {
   };
 
   const updateList = (list: any) => {
-    setLists(
-      lists.map((item) => {
-        return item.id === list.id ? list : item;
-      })
-    );
+    if (!firebase) {
+      console.error("Firebase instance is not initialized.");
+      return;
+    }
+    firebase.updateList(list);
   };
   // End: Functions //
 
@@ -121,10 +121,6 @@ export default function HomeScreen() {
           <Text style={{ color: userDefCol.blue, fontWeight: 300 }}>Lists</Text>
         </Text>
         <View style={styles.divider} />
-      </View>
-
-      <View>
-        <Text>User: {user.uid}</Text>
       </View>
 
       <View style={{ marginVertical: 48 }}>
