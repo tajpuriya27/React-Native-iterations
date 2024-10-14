@@ -8,7 +8,18 @@
    npm install
    ```
 
-2. Start the app
+2. Create `.env` file in the root directory and add the credentails from firebase:
+
+```
+  FIREBASE_API_KEY
+  FIREBASE_AUTH_DOMAIN
+  FIREBASE_PROJECT_ID
+  FIREBASE_STORAGE_BUCKET
+  FIREBASE_SENDER_ID
+  FIREBASE_APP_ID
+```
+
+3. Start the app
 
    ```bash
     npx expo start

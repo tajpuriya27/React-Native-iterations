@@ -1,15 +1,23 @@
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_STORAGE_BUCKET,
+  FIREBASE_SENDER_ID,
+  FIREBASE_APP_ID,
+} from "@env";
 import firebase from "firebase/compat/app";
 import "@firebase/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCVJ5yrHTQ6HrkzW6QQLdgarFrFIS_l9Pc",
-  authDomain: "my-todo-101.firebaseapp.com",
-  projectId: "my-todo-101",
-  storageBucket: "my-todo-101.appspot.com",
-  messagingSenderId: "519409860928",
-  appId: "1:519409860928:web:02cac970cff2691b70baa5",
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_SENDER_ID,
+  appId: FIREBASE_APP_ID,
 };
 
 class Fire {
