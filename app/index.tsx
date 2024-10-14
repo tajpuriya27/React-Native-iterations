@@ -74,7 +74,6 @@ export default function HomeScreen() {
       console.error("Firebase instance is not initialized.");
       return;
     }
-    console.log("adding list to ", firebase, "the data are", list);
     firebase.addList({
       name: list.name,
       color: list.color,
