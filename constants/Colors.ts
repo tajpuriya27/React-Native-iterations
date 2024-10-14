@@ -25,6 +25,7 @@ export const Colors = {
   },
 };
 
+// All used colors while building this app. Above colors are not used!
 export const userDefCol = {
   black: "#2D3436",
   gray: "#A4A4A4",

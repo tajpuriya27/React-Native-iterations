@@ -8,9 +8,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
-import { userDefCol } from "../../constants/Colors";
+import { userDefCol } from "../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
-import TodoList from "../../components/TodoList";
+import TodoList from "../components/TodoList";
 import AddListModal from "@/components/AddListModal";
 import Fire from "@/firebase.config";
 
