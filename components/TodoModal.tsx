@@ -82,6 +82,7 @@ export default function TodoModal({ list, closeModel, updateList }: any) {
 
         <View style={[styles.section, { flex: 3 }]}>
           <FlatList
+            keyExtractor={(_, index) => index.toString()}
             data={todos}
             renderItem={({ item, index }) => (
               <RenderTodos
@@ -89,7 +90,6 @@ export default function TodoModal({ list, closeModel, updateList }: any) {
                 toggleCompleted={() => toggleCompleted(index)}
               />
             )}
-            keyExtractor={(item) => item.title}
             contentContainerStyle={{
               paddingHorizontal: 32,
               paddingVertical: 64,

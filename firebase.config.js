@@ -55,8 +55,11 @@ class Fire {
   }
 
   get userId() {
-    return "6WKYVcTlxRnpQQlpnAPR";
     return firebase.auth().currentUser.uid;
+  }
+
+  detach() {
+    this.unsubscribe();
   }
 }
 

@@ -10,11 +10,9 @@ import {
 import React, { useState } from "react";
 import { userDefCol } from "../../constants/Colors";
 import { AntDesign } from "@expo/vector-icons";
-import tempData from "../../assets/data/tempData";
 import TodoList from "../../components/TodoList";
 import AddListModal from "@/components/AddListModal";
 import Fire from "@/firebase.config";
-console.log("khslsjl", Fire);
 
 interface todosObj {
   id: string;
@@ -37,11 +35,13 @@ export default function HomeScreen() {
     setModalVisible(!isModalVisible);
   };
 
+  let firebase: any;
+
   // start: Supporting functions //
   const initFirebase = () => {
     try {
       setIsLoading(true);
-      const firebase = new Fire((error, user) => {
+      firebase = new Fire((error, user) => {
         if (error) {
           return alert("Uh oh, something went wrong");
         }
@@ -58,12 +58,16 @@ export default function HomeScreen() {
       setIsLoading(false);
     }
   };
-
   // End: Supporting functions //
 
   // UseEffects: run on mounting only //
   React.useEffect(() => {
     initFirebase();
+
+    return () => {
+      // cleanup
+      firebase.detach();
+    };
   }, []);
 
   // Start: Functions //
@@ -113,7 +117,7 @@ export default function HomeScreen() {
       </View>
 
       <View>
-        <Text>User: {user.uid} </Text>
+        <Text>User: {user.uid}</Text>
       </View>
 
       <View style={{ marginVertical: 48 }}>
