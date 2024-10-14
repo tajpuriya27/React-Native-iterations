@@ -31,27 +31,26 @@ export default function HomeScreen() {
   const [lists, setLists] = useState<listsObj[]>([]);
   const [user, setUser] = useState<any>({});
   const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [firebase, setFirebase] = useState<Fire | null>(null);
   const toggleModel = () => {
     setModalVisible(!isModalVisible);
   };
-
-  let firebase: any;
 
   // start: Supporting functions //
   const initFirebase = () => {
     try {
       setIsLoading(true);
-      firebase = new Fire((error, user) => {
+      const firebaseInstance = new Fire((error, user) => {
         if (error) {
           return alert("Uh oh, something went wrong");
         }
 
-        firebase.getLists((lists: any) => {
-          console.log("lists", lists);
+        firebaseInstance.getLists((lists: any) => {
           setLists(lists);
         });
         setUser(user);
       });
+      setFirebase(firebaseInstance);
     } catch (error) {
       console.log("error", error);
     } finally {
@@ -65,14 +64,22 @@ export default function HomeScreen() {
     initFirebase();
 
     return () => {
-      // cleanup
-      firebase.detach();
+      firebase?.detach();
     };
   }, []);
 
   // Start: Functions //
   const addList = (list: any) => {
-    setLists([...lists, { ...list, id: lists.length + 1, todos: [] }]);
+    if (!firebase) {
+      console.error("Firebase instance is not initialized.");
+      return;
+    }
+    console.log("adding list to ", firebase, "the data are", list);
+    firebase.addList({
+      name: list.name,
+      color: list.color,
+      todos: [],
+    });
   };
 
   const updateList = (list: any) => {
