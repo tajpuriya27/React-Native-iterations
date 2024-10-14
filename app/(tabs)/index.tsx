@@ -40,7 +40,7 @@ export default function HomeScreen() {
   const initFirebase = () => {
     try {
       setIsLoading(true);
-      const firebaseInstance = new Fire((error, user) => {
+      const firebaseInstance = new Fire((error: any, user: any) => {
         if (error) {
           return alert("Uh oh, something went wrong");
         }
