@@ -1,14 +1,5 @@
 # To do App using Expo
 
-## How I initialize the program.
-
-```bash
-#Creating to-do react-native app using expo
- npx create-expo-app@latest to-do
- cd to-do
- ## All dependencies are created here in the directory, `to-do`
-```
-
 ## Get started
 
 1. Install dependencies
@@ -23,19 +14,9 @@
     npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Preface
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Being a Fullstack developer(backend heavy, node.js and react.js/next.js). I wanted to explore the mobile app development. I have used the [playlist of DesignIntoCode](https://www.youtube.com/playlist?list=PLqtWgQ5BRLPvbmeIYf769yb25g4W8NUZo) YouTube channel.  
+In video, presenter used all the class component and I have used all the functional component here. Almost all color and theme are copied.
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Final code of this video will be in branch `video-final`. Checkout to it as I might be coding around to learn more.
